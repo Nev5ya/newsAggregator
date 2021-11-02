@@ -2472,6 +2472,7 @@ textarea.form-control-lg {
 .form-check .form-check-input {
     float: left;
     margin-left: -1.5em;
+    cursor: pointer;
 }
 
 .form-check-input {
@@ -7971,6 +7972,19 @@ textarea.form-control-lg {
 
 .invisible {
     visibility: hidden !important;
+}
+
+.list-group-item-custom {
+    font-weight: 500;
+    color: black !important;
+}
+
+.container-width-custom {
+    width: 600px;
+}
+
+.custom-btn-width {
+    width: 150px;
 }
 
 @media (min-width: 576px) {

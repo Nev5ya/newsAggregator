@@ -4,8 +4,8 @@
         <div class="card-body">
             <div class="row">
                 <ul class="list-unstyled d-flex justify-content-evenly">
-                    @foreach($categories as $category)
-                        <li class="list-group-item-light"><a href="#!" class="text-decoration-none">{{ $category }}</a></li>
+                    @foreach($categories as $item)
+                        <li class="list-group-item-light"><a href="{{ route('category.show', ['id' => $item['category']]) }}" class="text-decoration-none">{{ $item['slug'] }}</a></li>
                     @endforeach
                 </ul>
             </div>
