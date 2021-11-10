@@ -1,13 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\admin;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use \App\Models\Category as CategoryModel;
 
-class Category extends Component
+class Header extends Component
 {
     /**
      * Create a new component instance.
@@ -24,10 +23,8 @@ class Category extends Component
      *
      * @return View|Closure|string
      */
-    public function render(): View|string|Closure
+    public function render(): View|Closure|string
     {
-        return view('components.category', [
-            'categories' => (new CategoryModel())->getCategory()
-        ]);
+        return view('components.admin.header');
     }
 }

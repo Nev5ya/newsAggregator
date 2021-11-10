@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +25,24 @@ Route::get('/news/{id}', [NewsController::class, 'show'])
     ->where('id', '\d+')
     ->name('news.show');
 
-//contact
+//category
+Route::get('/category/{id}', [CategoryController::class, 'show'])
+    ->name('category.show');
 
+//contact
 Route::get('/contact', [ContactController::class, 'index'])
     ->name('contact');
+
+// admin
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
+    Route::resource('news', AdminNewsController::class);
+    Route::resource('category', AdminCategoryController::class);
+});
+
+//auth
+Route::view('/auth', 'auth.index');
+
+
+
+
+

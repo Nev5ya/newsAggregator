@@ -1,4 +1,7 @@
 @extends('layouts.main')
+
+@section('title')
+    @parent Новость {{-- todo inject news title --}} @stop
 @section('content')
 
 <div class="col-lg-8">
