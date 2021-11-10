@@ -13,7 +13,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('news') }}">
+        <a class="nav-link" href="{{ route('news.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Перейти на сайт</span>
         </a>
@@ -38,6 +38,12 @@
         <a class="nav-link" href="{{ route('admin.category.index') }}">
             <i class="fas fa-fw fa-newspaper"></i>
             <span>Категории</span></a>
+    </li>
+
+    <li class="nav-item @if(request()->routeIs('admin.download')) active @endif">
+        <a class="nav-link" href="{{ route('admin.download') }}">
+            <i class="fas fa-fw fa-download"></i>
+            <span>Выгрузить данные</span></a>
     </li>
 
     <!-- Divider -->

@@ -50,11 +50,12 @@ class Category extends Model
             if ($item['category'] === $categoryName)
                 return $item['slug'];
         }
+        return '';
     }
 
     public function getCategoryIdByName(string $name): int|string|null
     {
-        $categories = (new Category())->getCategory();
+        $categories = $this->getCategory();
         return key(array_filter($categories, function ($item) use ($name) {
             return $item['category'] === $name;
         }, ARRAY_FILTER_USE_BOTH));

@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
-@section('title')
-    Контакты @stop
+@section('title', 'Контакты')
 
 @section('content')
     <div class="col-lg-12">

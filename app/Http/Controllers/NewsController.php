@@ -10,17 +10,26 @@ use Illuminate\Contracts\View\View;
 
 class NewsController extends Controller
 {
-    public function index(): Factory|View|Application
+    /**
+     * @param News $news
+     * @return Factory|View|Application
+     */
+    public function index(News $news): Factory|View|Application
     {
         return view('news.index', [
-            'newsList' => (new News())->getNews()
+            'newsList' => $news->getNews()
         ]);
     }
 
-    public function show(int $id): Factory|View|Application
+    /**
+     * @param News $news
+     * @param int $id
+     * @return Factory|View|Application
+     */
+    public function show(News $news, int $id): Factory|View|Application
     {
         return view('news.show', [
-            'id' => $id
+            'news' => $news->getNewsById($id)
         ]);
     }
 }

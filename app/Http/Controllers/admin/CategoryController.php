@@ -16,10 +16,10 @@ class CategoryController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index(Category $category): View|Factory|Application
     {
         return view('admin.category.index', [
-            'categoryList' => (new Category())->getCategory()
+            'categoryList' => $category->getCategory()
         ]);
     }
 
