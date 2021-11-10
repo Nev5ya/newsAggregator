@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Новости</title>
+    <title>@section('title') Главная | @show</title>
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
 </head>
 <body>
@@ -12,7 +12,7 @@
     <div class="row">
         @yield('content')
         <!-- Side widgets-->
-        @if(@request()->is(['/', 'news/*']))<x-category></x-category>@endif
+        @if(@request()->is(['/', 'news/*', 'category/*']))<x-category></x-category>@endif
     </div>
 </div>
 <x-footer></x-footer>

@@ -1,4 +1,7 @@
 @extends('layouts.main')
+
+@section('title', 'Контакты')
+
 @section('content')
     <div class="col-lg-12">
         <div class="p-1 mb-5">

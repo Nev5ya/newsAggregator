@@ -1,15 +1,21 @@
 @extends('layouts.main')
-@section('content')
 
+@section('title')
+    Новость | {{ isset($news['title']) }} @stop
+@section('content')
 <div class="col-lg-8">
+    @if(!is_array($news))
+        <h2 class="card-title">Такой новости не существует.</h2>
+    @else
     <div class="card mb-4">
         <img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="img" />
         <div class="card-body">
-            <div class="small text-muted"><h4>ID {{ $id }}</h4></div>
-            <h2 class="card-title">Featured Post Title</h2>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
+            <h2 class="card-title">{{ $news['title'] }}</h2>
+            <p class="card-text">{{ $news['description'] }}</p>
+            <p class="card-text">{{ $news['author'] }}</p>
+            <p class="card-text text-muted">{{ $news['created_at'] }}</p>
         </div>
     </div>
+    @endif
 </div>
-
 @endsection
