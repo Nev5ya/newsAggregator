@@ -14,7 +14,7 @@
                     <div class="alert alert-danger">{{ $error }}</div>
                 @endforeach
             @endif
-            <form method="POST" action="{{ route('admin.news.store') }}">
+            <form method="POST" action="{{ route('admin.news.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="title">Заголовок</label>
@@ -26,11 +26,11 @@
                 </div>
                 <div class="form-group">
                     <label for="category">Категория</label>
-                    <select class="custom-select" name="category" id="category">
+                    <select class="custom-select" name="category_id" id="category">
                         @foreach($categories as $category)
                         <option
-                            value="{{ $category['id'] }}" @if ($category['id'] == old('category')) selected @endif>
-                            {{ $category['slug'] }}
+                            value="{{ $category->id }}" @if ($category->id == old('category')) selected @endif>
+                            {{ $category->slug }}
                         </option>
                         @endforeach
                     </select>
@@ -38,6 +38,9 @@
                 <div class="form-group">
                     <label for="description">Описание новости</label>
                     <textarea class="form-control" name="description" id="description" value="{{ old('description') }}" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input class="custom-file" type="file" name="image">
                 </div>
                 <button type="submit" class="btn btn-success">Сохранить</button>
             </form>

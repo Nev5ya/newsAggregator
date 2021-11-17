@@ -21,7 +21,7 @@
                     <select class="custom-select" name="category" id="category">
                         <option value="all">Все</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category['category'] }}">{{ $category['slug'] }}</option>
+                            <option value="{{ $category->category }}">{{ $category->slug }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -29,6 +29,7 @@
                     <label for="format">Формат данных</label>
                     <select class="custom-select" name="format" id="format">
                         <option value="json">JSON</option>
+                        <option value="xlsx">XLSX</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-success">Скачать</button>

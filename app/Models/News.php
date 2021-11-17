@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
+use JetBrains\PhpStorm\ArrayShape;
 
 class News extends Model
 {
@@ -12,7 +13,7 @@ class News extends Model
 
     private Category $category;
 
-    private string $pathToJsonFile = '/app/public/newsJSON/news.json';
+    private string $pathToImage = '/assets/image/default.jpg';
 
     public string $pathToTemp = '/app/public/temp/';
 
@@ -28,7 +29,7 @@ class News extends Model
      */
     public function getNews(): array
     {
-        return json_decode(File::get(storage_path() . $this->pathToJsonFile), true);
+        return DB::table('news')->get()->all();
     }
 
     /**
@@ -37,13 +38,7 @@ class News extends Model
      */
     public function getNewsByCategory(string $categoryName): array
     {
-        $news = $this->getNews();
-
-        $categoryId = $this->category->getCategoryIdByName($categoryName);
-
-        return array_filter($news , function ($item) use ($categoryId) {
-            return $item['category_id'] === $categoryId;
-        }, ARRAY_FILTER_USE_BOTH);
+        return DB::table('news')->where('category_name', $categoryName)->get()->all();
     }
 
     /**
@@ -53,7 +48,7 @@ class News extends Model
     public function getNewsById($id): mixed
     {
         foreach ($this->getNews() as $news) {
-            if ($news['id'] === $id) {
+            if ($news->id === $id) {
                 return $news;
             }
         }
@@ -62,32 +57,41 @@ class News extends Model
 
     /**
      * @param array $news takes created news data
-     * @return int news ID's
+     * @return int news ID
      */
     public function createNews(array $news): int
     {
-        $tempArray = $this->getNews();
-        $news['id'] = rand(0, 1000);
-        $news['created_at'] = date(now());
-        array_push($tempArray, $news);
-        $jsonData = json_encode($tempArray, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        File::put(storage_path() . $this->pathToJsonFile, $jsonData);
-        return $news['id'];
+        $category = (new Category())->getCategory();
+        $news['category_name'] = $category[$news['category_id']]->slug;
+
+        $news['image'] = $this->pathToImage;
+
+        if (request()->file('image')) {
+            $news['image'] = $this->handleImage(request()->file('image'));
+        }
+
+        return DB::table('news')->insertGetId($news);
+    }
+
+    public function handleImage($image): string
+    {
+        return substr(
+            $image->move(public_path() . '/assets/image/',
+                $image . '.' . $image->getClientOriginalExtension()
+            )->getRealPath(), 43);
     }
 
     /**
      * @param string $category Category name
-     * @return string Path to created file
+     * @return array Selected news
      */
-    public function createNewsForDownload(string $category): string
-    {
-        $tempPath = storage_path() . $this->pathToTemp . $category . '.json';
-        $data = json_encode(
-            $this->getNewsByCategory($category),
-            JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT
-        );
 
-        File::put($tempPath, $data);
-        return $tempPath;
+    public function getNewsForDownload(string $category): array
+    {
+        if ($category === 'all') {
+            return $this->getNews();
+        }
+
+        return $this->getNewsByCategory($category);
     }
 }

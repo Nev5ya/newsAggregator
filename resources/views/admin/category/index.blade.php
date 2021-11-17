@@ -21,10 +21,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($categoryList as $id => $item)
+                    @foreach($categoryList as $item)
                         <tr>
-                            <td>{{ $id }}</td>
-                            <td>{{ $item['slug'] }}</td>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->slug }}</td>
                             <td>{{ date('d:m:Y') }}</td>
                             <td>
                                 <a href="">Редактировать</a>
