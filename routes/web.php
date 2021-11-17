@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\admin\DownloadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 
 //news
 Route::get('/', [NewsController::class, 'index'])
-    ->name('news');
+    ->name('news.index');
 Route::get('/news/{id}', [NewsController::class, 'show'])
     ->where('id', '\d+')
     ->name('news.show');
@@ -37,10 +38,13 @@ Route::get('/contact', [ContactController::class, 'index'])
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::resource('news', AdminNewsController::class);
     Route::resource('category', AdminCategoryController::class);
+    Route::get('/download', [DownloadController::class, 'index'])
+        ->name('download');
+    Route::post('/download', [DownloadController::class, 'download']);
 });
 
 //auth
-Route::view('/auth', 'auth.index');
+Route::view('/auth', 'auth.index')->name('auth');
 
 
 

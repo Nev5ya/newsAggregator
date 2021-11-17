@@ -1,4 +1,6 @@
 @extends('layouts.main')
+@section('title', 'Авторизация')
+
 @section('content')
     <div class="container container-width-custom px-5 my-5">
         <form>

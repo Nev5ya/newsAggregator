@@ -14,19 +14,33 @@
                     <div class="alert alert-danger">{{ $error }}</div>
                 @endforeach
             @endif
-            <form method="GET" action="{{ route('admin.news.index') }}">
+            <form method="POST" action="{{ route('admin.news.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="title">Заголовок</label>
                     <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}" required>
                 </div>
                 <div class="form-group">
-                    <label for="author">Автор новости</label>
+                    <label for="author">Автор</label>
                     <input type="text" class="form-control" name="author" id="author" value="{{ old('author') }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Категория</label>
+                    <select class="custom-select" name="category_id" id="category">
+                        @foreach($categories as $category)
+                        <option
+                            value="{{ $category->id }}" @if ($category->id == old('category')) selected @endif>
+                            {{ $category->slug }}
+                        </option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="description">Описание новости</label>
                     <textarea class="form-control" name="description" id="description" value="{{ old('description') }}" required></textarea>
+                </div>
+                <div class="form-group">
+                    <input class="custom-file" type="file" name="image">
                 </div>
                 <button type="submit" class="btn btn-success">Сохранить</button>
             </form>

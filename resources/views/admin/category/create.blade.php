@@ -14,7 +14,7 @@
                     <div class="alert alert-danger">{{ $error }}</div>
                 @endforeach
             @endif
-            <form method="GET" action="{{ route('admin.category.index') }}">
+            <form method="POST" action="{{ route('admin.category.store') }}">
                 @csrf
                 <div class="form-group">
                     <label for="title">Название категории</label>
