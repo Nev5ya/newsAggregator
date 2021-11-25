@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CategorySeeder extends Seeder
+class CategoriesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('category')->insert($this->getCategories());
+        DB::table('categories')->insert($this->getCategories());
     }
 
     public function getCategories(): array
@@ -22,23 +22,28 @@ class CategorySeeder extends Seeder
             return [
             [
                 'category' => 'sport',
-                'slug' => 'Спорт'
+                'slug' => 'Спорт',
+                'created_at' => date(now())
             ],
             [
                 'category' => 'economy',
-                'slug' => 'Экономика'
+                'slug' => 'Экономика',
+                'created_at' => date(now())
             ],
             [
                 'category' => 'science',
-                'slug' => 'Наука'
+                'slug' => 'Наука',
+                'created_at' => date(now())
             ],
             [
                 'category' => 'politics',
-                'slug' => 'Политика'
+                'slug' => 'Политика',
+                'created_at' => date(now())
             ],
             [
                 'category' => 'culture',
-                'slug' => 'Культура'
+                'slug' => 'Культура',
+                'created_at' => date(now())
             ]
         ];
     }

@@ -32,7 +32,7 @@
                         <option value="xlsx">XLSX</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success">Скачать</button>
+                <button type="submit" class="btn btn-success"><i class="fas fa-download fa-sm"></i>&nbsp; Скачать</button>
             </form>
         </div>
     </div>

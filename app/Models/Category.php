@@ -4,27 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
     use HasFactory;
 
-    /**
-     * @return array
-     */
-    public function getCategory(): array
-    {
-        return DB::table('category')->get()->all();
-    }
+    protected $fillable = ['category', 'slug'];
 
     /**
-     * @param string $categoryName
-     * @return string
+     * @return HasMany
      */
-    public function getCategorySlug(string $categoryName): string
+    public function news(): HasMany
     {
-        return DB::table('category')->where('category', $categoryName)->first()->slug;
+        return $this->hasMany(News::class);
     }
 }

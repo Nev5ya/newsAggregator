@@ -4,73 +4,57 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use JetBrains\PhpStorm\ArrayShape;
 
+/**
+ * @method static find(int $id)
+ */
 class News extends Model
 {
     use HasFactory;
 
-    private Category $category;
+    protected $fillable = ['title', 'category_id', 'description', 'author', 'image'];
 
-    private string $pathToImage = '/assets/image/default.jpg';
+    public string $pathToImage = '/assets/image/default.jpg';
 
     public string $pathToTemp = '/app/public/temp/';
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->category = new Category();
-    }
-
     /**
-     * Get all list of news
-     * @return array
+     * @return BelongsTo
      */
-    public function getNews(): array
+    public function category(): BelongsTo
     {
-        return DB::table('news')->get()->all();
+        return $this->belongsTo(Category::class);
     }
 
     /**
      * @param string $categoryName
-     * @return array
+     * @return Model
      */
-    public function getNewsByCategory(string $categoryName): array
+    public function getCurrentCategoryByName(string $categoryName): Model
     {
-        return DB::table('news')->where('category_name', $categoryName)->get()->all();
+       return Category::query()->where('category', $categoryName)->first();
+    }
+
+    /**
+     * @param string $categoryName
+     * @return Collection
+     */
+    public function getNewsByCategory(string $categoryName): Collection
+    {
+        $categoryId = $this->getCurrentCategoryByName($categoryName)->getAttributes()['id'];
+        return News::query()->where('category_id', $categoryId)->get();
     }
 
     /**
      * @param $id
-     * @return mixed
+     * @return Collection
      */
-    public function getNewsById($id): mixed
+    public function getNewsById($id): Collection
     {
-        foreach ($this->getNews() as $news) {
-            if ($news->id === $id) {
-                return $news;
-            }
-        }
-        return '';
-    }
-
-    /**
-     * @param array $news takes created news data
-     * @return int news ID
-     */
-    public function createNews(array $news): int
-    {
-        $category = (new Category())->getCategory();
-        $news['category_name'] = $category[$news['category_id']]->slug;
-
-        $news['image'] = $this->pathToImage;
-
-        if (request()->file('image')) {
-            $news['image'] = $this->handleImage(request()->file('image'));
-        }
-
-        return DB::table('news')->insertGetId($news);
+        return News::query()->where('category_id', $id)->get();
     }
 
     public function handleImage($image): string
@@ -83,15 +67,16 @@ class News extends Model
 
     /**
      * @param string $category Category name
-     * @return array Selected news
+     * @return Collection Selected news
      */
 
-    public function getNewsForDownload(string $category): array
+    public function getNewsForDownload(string $category): Collection
     {
         if ($category === 'all') {
-            return $this->getNews();
+            return News::all();
         }
 
         return $this->getNewsByCategory($category);
     }
+
 }

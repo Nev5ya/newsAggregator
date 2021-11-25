@@ -1,9 +1,17 @@
 @extends('layouts.main')
 
 @section('title')
-    Новость | {{ isset($news->title) }} @stop
+    Новость | {{ $news->title ?? 'Отсутствует' }} @stop
 @section('content')
-<div class="col-lg-8">
+    @if(session('type'))
+        <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">
+            {{ session('message') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+<div class="col-lg-6">
     @if(!is_object($news))
         <h2 class="card-title">Такой новости не существует.</h2>
     @else

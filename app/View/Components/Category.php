@@ -27,7 +27,7 @@ class Category extends Component
     public function render(): View|string|Closure
     {
         return view('components.category', [
-            'categories' => (new CategoryModel())->getCategory()
+            'categories' => CategoryModel::all()
         ]);
     }
 }

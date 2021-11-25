@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsRequest;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Contracts\Foundation\Application;
@@ -16,30 +17,22 @@ class NewsController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param News $news
-     * @param Category $category
      * @return Application|Factory|View
      */
-    public function index(News $news, Category $category): View|Factory|Application
+    public function index(): View|Factory|Application
     {
-        return view('admin.news.index', [
-            'newsList' => $news->getNews(),
-            'category' => $category->getCategory()
-        ]);
+        return view('admin.news.index')
+            ->with('newsList', News::all())
+            ->with('categories', Category::all()->keyBy('id'));
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @param Category $category
      * @return Application|Factory|View|RedirectResponse
      */
-    public function create(Category $category): Application|Factory|View|RedirectResponse
+    public function create(): Application|Factory|View|RedirectResponse
     {
-        return view('admin.news.create', [
-            'categories' => $category->getCategory()
-        ]);
+        return view('admin.news.create')->with('categories', Category::all());
     }
 
     /**
@@ -49,19 +42,21 @@ class NewsController extends Controller
      * @param News $news
      * @return RedirectResponse
      */
-    public function store(Request $request, News $news): RedirectResponse
+    public function store(NewsRequest $request, News $news): RedirectResponse
     {
-        //тестовая валидация
-        $request->validate([
-            'title' => ['required', 'string', 'min:3'],
-            'author' => ['required', 'string', 'min:4'],
-            'description' => ['required', 'string']
-        ]);
+        $data = $request->validated();
 
-        $data = request()->except('_token');
+        $news->fill($data);
 
-        $id = $news->createNews($data);
-        return redirect()->route('news.show', ['id' => $id]);
+        $request->file('image')
+            ? $news->image = $news->handleImage(request()->file('image'))
+            : $news->image = $news->pathToImage;
+
+        $news->save();
+
+        return redirect()
+            ->route('news.show', ['id' => $news->id])
+            ->with(['type' => 'success', 'message' => 'Новость добавлена!']);
     }
 
     /**
@@ -78,34 +73,51 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param News $news
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(News $news): View|Factory|Application
     {
-        //
+        return view('admin.news.create')
+            ->with('news', $news)
+            ->with('categories', Category::all()->keyBy('id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
-     * @return Response
+     * @param $news
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(NewsRequest $request, News $news): RedirectResponse
     {
-        //
+        $data = $request->validated();
+
+        $news->fill($data);
+
+        $request->file('image')
+            ? $news->image = $news->handleImage(request()->file('image'))
+            : $news->image = $news->pathToImage;
+
+        $news->save();
+
+        return redirect()
+            ->route('news.show', ['id' => $news->id])
+            ->with(['type' => 'success', 'message' => 'Новость изменена!']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param News $news
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(News $news): RedirectResponse
     {
-        //
+        $news->delete();
+        return redirect()
+            ->route('admin.news.index')
+            ->with(['type' => 'success', 'message' => 'Новость удалена!']);
     }
 }

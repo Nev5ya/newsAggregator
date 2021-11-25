@@ -18,14 +18,11 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class DownloadController extends Controller
 {
     /**
-     * @param Category $category
      * @return Factory|View|Application
      */
-    public function index(Category $category): Factory|View|Application
+    public function index(): Factory|View|Application
     {
-        return view('admin.download.index', [
-            'categories' => $category->getCategory()
-        ]);
+        return view('admin.download.index')->with('categories', Category::all());
     }
 
     /**
@@ -48,7 +45,7 @@ class DownloadController extends Controller
             return response()->download($path)->deleteFileAfterSend();
         }
 
-        $export = new NewsExports($data);
+        $export = new NewsExports($data->toArray());
         return FacadeExcel::download($export, $params['category'] . '.xlsx', Excel::XLSX);
     }
 }

@@ -36,8 +36,8 @@ Route::get('/contact', [ContactController::class, 'index'])
 
 // admin
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
-    Route::resource('news', AdminNewsController::class);
-    Route::resource('category', AdminCategoryController::class);
+    Route::resource('news', AdminNewsController::class)->except('show');
+    Route::resource('category', AdminCategoryController::class)->except('show');
     Route::get('/download', [DownloadController::class, 'index'])
         ->name('download');
     Route::post('/download', [DownloadController::class, 'download']);

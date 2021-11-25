@@ -22,14 +22,12 @@ class NewsSeeder extends Seeder
     public function getNews(): array
     {
         $faker = Factory::create('ru_RU');
-        $category = (new Category())->getCategory();
         $data = [];
 
         for ($i = 0; $i < 24; $i++) {
-            $categoryIndex = rand(0, count($category) - 1);
+            $categoryIndex = rand(1, Category::all()->count());
             $data[] = [
-                'category_id' => $categoryIndex + 1,
-                'category_name' => $category[$categoryIndex]->category,
+                'category_id' => $categoryIndex,
                 'title' => $faker->realText(rand(10, 15)),
                 'description' => $faker->realText(rand(150, 300)),
                 'author' => $faker->name(),
