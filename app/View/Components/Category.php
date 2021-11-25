@@ -5,7 +5,7 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use \App\Models\Category as CategoryModel;
+use App\Models\Category as CategoryModel;
 
 class Category extends Component
 {
@@ -27,7 +27,7 @@ class Category extends Component
     public function render(): View|string|Closure
     {
         return view('components.category', [
-            'categories' => (new CategoryModel())->getCategory()
+            'categories' => CategoryModel::all()
         ]);
     }
 }

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -19,7 +21,7 @@ class CategoryController extends Controller
     public function index(): View|Factory|Application
     {
         return view('admin.category.index', [
-            'categoryList' => (new Category())->getCategory()
+            'categories' => Category::all()
         ]);
     }
 
@@ -36,19 +38,28 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CategoryRequest $request
+     * @param Category $category
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request, Category $category): RedirectResponse
     {
-        //
+        $data = $request->validated();
+
+        $category->fill($data);
+
+        $category->save();
+
+        return redirect()
+            ->route('admin.category.index')
+            ->with(['type' => 'success', 'message' => 'Категория добавлена!']);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -58,34 +69,46 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit(Category $category): View|Factory|Application
     {
-        //
+        return view('admin.category.create')
+            ->with('category', $category);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param CategoryRequest $request
+     * @param Category $category
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
-        //
+        $data = $request->validated();
+
+        $category->fill($data);
+
+        $category->save();
+
+        return redirect()
+            ->route('admin.category.index')
+            ->with(['type' => 'success', 'message' => 'Категория изменена!']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Category $category): RedirectResponse
     {
-        //
+        $category->delete();
+        return redirect()
+            ->route('admin.category.index')
+            ->with(['type' => 'success', 'message' => 'Категория удалена!']);
     }
 }
