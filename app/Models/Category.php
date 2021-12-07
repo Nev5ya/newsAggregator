@@ -4,59 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
     use HasFactory;
 
-    //тестовые категории
-    protected array $category = [
-        [
-            'id' => 0,
-            'category' => 'sport',
-            'slug' => 'Спорт'
-        ],
-        [
-            'id' => 1,
-            'category' => 'economy',
-            'slug' => 'Экономика'
-        ],
-        [
-            'id' => 2,
-            'category' => 'science',
-            'slug' => 'Наука'
-        ],
-        [
-            'id' => 3,
-            'category' => 'politics',
-            'slug' => 'Политика'
-        ],
-        [
-            'id' => 4,
-            'category' => 'culture',
-            'slug' => 'Культура'
-        ]
-    ];
+    protected $fillable = ['category', 'slug'];
 
-    public function getCategory(): array
+    /**
+     * @return HasMany
+     */
+    public function news(): HasMany
     {
-        return $this->category;
-    }
-
-    public function getCategorySlug(string $categoryName)
-    {
-        foreach ($this->category as $item) {
-            if ($item['category'] === $categoryName)
-                return $item['slug'];
-        }
-    }
-
-    public function getCategoryIdByName(string $name): int|string|null
-    {
-        $categories = (new Category())->getCategory();
-        return key(array_filter($categories, function ($item) use ($name) {
-            return $item['category'] === $name;
-        }, ARRAY_FILTER_USE_BOTH));
+        return $this->hasMany(News::class);
     }
 }

@@ -1,0 +1,47 @@
+{
+    "2": {
+        "id": 259,
+        "category_id": 0,
+        "category_name": "Спорт",
+        "title": "Бизнес-аналитик",
+        "description": "Dignissimos quaerat ab.",
+        "author": "Искра Дмитриевна Тимофееваа",
+        "created_at": "2021-11-09 19:08:02"
+    },
+    "7": {
+        "id": 429,
+        "category_id": 0,
+        "category_name": "Спорт",
+        "title": "Электромонтёр",
+        "description": "Consequatur porro nam ipsam temporibus.",
+        "author": "Анна Романовна Савельева",
+        "created_at": "2021-11-09 19:08:02"
+    },
+    "14": {
+        "id": 965,
+        "category_id": 0,
+        "category_name": "Спорт",
+        "title": "Научный сотрудник",
+        "description": "Aperiam quia ratione enim rerum dolorem.",
+        "author": "Новикова Роберт Владимирович",
+        "created_at": "2021-11-09 19:08:02"
+    },
+    "17": {
+        "id": 761,
+        "category_id": 0,
+        "category_name": "Спорт",
+        "title": "Фотограф",
+        "description": "Modi asperiores sit voluptates quos dicta.",
+        "author": "Рафаил Андреевич Кабанова",
+        "created_at": "2021-11-09 19:08:02"
+    },
+    "20": {
+        "id": 866,
+        "category_id": 0,
+        "category_name": "Спорт",
+        "title": "Музыкант",
+        "description": "Quaerat ipsam consequatur explicabo.",
+        "author": "Лыткин Нестор Андреевич",
+        "created_at": "2021-11-09 19:08:02"
+    }
+}

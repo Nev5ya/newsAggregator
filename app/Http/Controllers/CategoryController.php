@@ -10,11 +10,17 @@ use Illuminate\Contracts\View\View;
 
 class CategoryController extends Controller
 {
-    public function show(string $category): Factory|View|Application
+    public function index(Category $category): Factory|View|Application
     {
+        return view('category.index')->with('categories', $category->all());
+    }
+
+    public function show(News $news, string $categoryName): Factory|View|Application
+    {
+        $currentCategory = $news->getCurrentCategoryByName($categoryName);
         return view('category.show', [
-            'newsList' => (new News())->getNewsByCategory($category),
-            'currentCategory' => (new Category)->getCategorySlug($category)
+            'newsList' => $currentCategory->news,
+            'currentCategory' => $currentCategory->slug
         ]);
     }
 }
