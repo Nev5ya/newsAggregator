@@ -1,6 +1,8 @@
-@extends('layouts.main')
+@extends('layouts.app')
 @section('title')
     Категории | {{ $currentCategory }} @stop
+
+@section('header', $currentCategory)
 
 @section('content')
     <div class="col-lg-8">

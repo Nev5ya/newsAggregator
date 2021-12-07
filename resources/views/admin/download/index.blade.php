@@ -14,7 +14,7 @@
                     <div class="alert alert-danger">{{ $error }}</div>
                 @endforeach
             @endif
-            <form method="POST" action="{{ route('admin.download') }}">
+            <form method="POST" action="{{ route('admin.download.load') }}">
                 @csrf
                 <div class="form-group">
                     <label for="category">Новости по категории</label>

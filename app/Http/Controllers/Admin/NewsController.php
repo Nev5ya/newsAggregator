@@ -1,44 +1,43 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsRequest;
 use App\Models\Category;
 use App\Models\News;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class NewsController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @return Application|Factory|View
+     * @param News $news
+     * @param Category $category
+     * @return Renderable
      */
-    public function index(): View|Factory|Application
+    public function index(News $news, Category $category): Renderable
     {
         return view('admin.news.index')
-            ->with('newsList', News::all())
-            ->with('categories', Category::all()->keyBy('id'));
+            ->with('newsList', $news->query()->paginate(5))
+            ->with('categories', $category->all()->keyBy('id'));
     }
 
     /**
      * Show the form for creating a new resource.
-     * @return Application|Factory|View|RedirectResponse
+     * @param Category $category
+     * @return Renderable|RedirectResponse
      */
-    public function create(): Application|Factory|View|RedirectResponse
+    public function create(Category $category): Renderable|RedirectResponse
     {
-        return view('admin.news.create')->with('categories', Category::all());
+        return view('admin.news.create')->with('categories', $category->all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param NewsRequest $request
      * @param News $news
      * @return RedirectResponse
      */
@@ -60,34 +59,24 @@ class NewsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param News $news
-     * @return Application|Factory|View
+     * @param Category $category
+     * @return Renderable
      */
-    public function edit(News $news): View|Factory|Application
+    public function edit(News $news, Category $category): Renderable
     {
         return view('admin.news.create')
             ->with('news', $news)
-            ->with('categories', Category::all()->keyBy('id'));
+            ->with('categories', $category->all()->keyBy('id'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param $news
+     * @param NewsRequest $request
+     * @param News $news
      * @return RedirectResponse
      */
     public function update(NewsRequest $request, News $news): RedirectResponse

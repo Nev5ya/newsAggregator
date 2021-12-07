@@ -1,4 +1,5 @@
-@extends('layouts.main')
+@extends('layouts.app')
+@section('header', $news?->title ?? 'Not found.')
 
 @section('title')
     Новость | {{ $news->title ?? 'Отсутствует' }} @stop

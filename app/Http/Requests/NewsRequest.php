@@ -23,7 +23,8 @@ class NewsRequest extends FormRequest
      * @return array
      */
     #[ArrayShape(
-        ['title' => "string",
+        [
+            'title' => "string",
             'category_id' => "string",
             'author' => "string",
             'description' => "string",
@@ -35,7 +36,7 @@ class NewsRequest extends FormRequest
         return [
             'title' => 'required|string|min:3|max:20',
             'category_id' => 'required|exists:App\Models\Category,id',
-            'author' => 'required|string|min:4|max:20',
+            'author' => 'required|string|min:4|max:30',
             'description' => 'required|string|min:10',
             'image' => 'mimes:jpeg,png,bmp,jpg|max:1000'
         ];

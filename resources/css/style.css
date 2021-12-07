@@ -11304,3 +11304,10 @@ textarea.form-control-lg {
         max-width: 200px !important;
     }
 }
+
+.main-container-flex-wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

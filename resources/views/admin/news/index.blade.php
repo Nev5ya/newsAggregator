@@ -57,4 +57,6 @@
             </div>
         </div>
     </div>
+    <!-- Pagination-->
+    {{ $newsList->links() }}
 @endsection

@@ -46,7 +46,11 @@
                                     @csrf
                                     @method("DELETE")
                                     <a class="btn btn-facebook mb-1" href="{{ route('admin.category.edit', $category) }}"><i class="fas fa-edit fa-sm text-white-50"></i>&nbsp; Редактировать</a>
-                                    <button class="btn btn-google" type="submit"><i class="fas fa-trash fa-sm text-white-50"></i>&nbsp; Удалить</button>
+                                    <button class="btn btn-google mb-1" type="submit"><i class="fas fa-trash fa-sm text-white-50"></i>&nbsp; Удалить</button>
+                                    <label class="btn btn-primary mb-1 ml-3">
+                                        <input type="checkbox" class="d-none" name="allDelete">
+                                        <i class="far fa-sm text-white fa-square"></i>&nbsp; Удалить с новостями
+                                    </label>
                                 </form>
                             </td>
                         </tr>
@@ -56,4 +60,7 @@
             </div>
         </div>
     </div>
+    <!-- Pagination-->
+    {{ $categories->links() }}
+    <script defer src="{{ asset('/assets/js/checkboxHandler.js') }}"></script>
 @endsection

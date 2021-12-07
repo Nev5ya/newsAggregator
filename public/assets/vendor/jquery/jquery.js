@@ -4429,7 +4429,8 @@ function getData( data ) {
 
 function dataAttr( elem, key, data ) {
 	var name;
-
+    console.log(elem);
+    return null;
 	// If nothing was found internally, try to fetch any
 	// data from the HTML5 data-* attribute
 	if ( data === undefined && elem.nodeType === 1 ) {

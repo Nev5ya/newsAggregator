@@ -1,12 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\admin\DownloadController;
+use App\Http\Controllers\Admin\DownloadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,34 +21,43 @@ use App\Http\Controllers\admin\DownloadController;
 |
 */
 
-//news
 Route::get('/', [NewsController::class, 'index'])
     ->name('news.index');
 Route::get('/news/{id}', [NewsController::class, 'show'])
     ->where('id', '\d+')
     ->name('news.show');
 
-//category
-Route::get('/category/{id}', [CategoryController::class, 'show'])
-    ->name('category.show');
+Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
+    Route::get('/', [CategoryController::class, 'index'])
+        ->name('index');
+    Route::get('{id}', [CategoryController::class, 'show'])
+        ->name('show');
+});
 
-//contact
 Route::get('/contact', [ContactController::class, 'index'])
     ->name('contact');
 
-// admin
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function() {
     Route::resource('news', AdminNewsController::class)->except('show');
     Route::resource('category', AdminCategoryController::class)->except('show');
+    Route::resource('users', UserController::class)->except('create');
     Route::get('/download', [DownloadController::class, 'index'])
-        ->name('download');
-    Route::post('/download', [DownloadController::class, 'download']);
+        ->name('download.index');
+    Route::post('/download', [DownloadController::class, 'download'])
+        ->name('download.load');
 });
 
-//auth
-Route::view('/auth', 'auth.index')->name('auth');
+Auth::routes();
 
 
+/* Provide user profile page
+ * Only current
+ * */
+Route::get('/profile/edit/{id}', [UserController::class, 'edit'])
+    ->middleware(['auth', 'user'])
+    ->where('id' ,'\d+')
+    ->name('showProfile');
 
-
-
+Route::put('/profile/update/{user}', [UserController::class, 'update'])
+    ->middleware('user')
+    ->name('updateProfile');
