@@ -1,13 +1,12 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
-@section('title')
-    Контакты @stop
+@section('title', 'Контакты')
+@section('header', 'Свяжитесь с нами!')
 
 @section('content')
     <div class="col-lg-12">
         <div class="p-1 mb-5">
-            <h1 class="card-subtitle mb-2">Свяжитесь с нами!</h1>
-            <p class="card-subtitle font-weight-bold">Наш адрес: Россия, Москва, улица Арбат, 37/2с6</p>
+            <h2 class="card-subtitle mb-2">Наш адрес: Россия, Москва, улица Арбат, 37/2с6</h2>
         </div>
     </div>
     <form class="form-group mb-3" action="">

@@ -13,7 +13,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('news') }}">
+        <a class="nav-link" href="{{ route('news.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Перейти на сайт</span>
         </a>
@@ -28,16 +28,34 @@
     </div>
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item @if(request()->routeIs('admin.news.*')) active @endif">
+    <li class="nav-item @if(request()->routeIs('*.news.*')) active @endif">
         <a class="nav-link" href="{{ route('admin.news.index') }}">
-            <i class="fas fa-fw fa-list"></i>
+            <i class="fas fa-fw fa-newspaper"></i>
             <span>Новости</span></a>
     </li>
 
-    <li class="nav-item @if(request()->routeIs('admin.category.*')) active @endif">
+    <li class="nav-item @if(request()->routeIs('*.category.*')) active @endif">
         <a class="nav-link" href="{{ route('admin.category.index') }}">
-            <i class="fas fa-fw fa-newspaper"></i>
+            <i class="fas fa-fw fa-list"></i>
             <span>Категории</span></a>
+    </li>
+
+    <li class="nav-item @if(request()->routeIs('*.users.*')) active @endif">
+        <a class="nav-link" href="{{ route('admin.users.index') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Пользователи</span></a>
+    </li>
+
+    <li class="nav-item @if(request()->routeIs('*.parser.*')) active @endif">
+        <a class="nav-link" href="{{ route('admin.parser') }}">
+            <i class="fas fa-fw fa-download"></i>
+            <span>Парсер</span></a>
+    </li>
+
+    <li class="nav-item @if(request()->routeIs('*.download.*')) active @endif">
+        <a class="nav-link" href="{{ route('admin.download.index') }}">
+            <i class="fas fa-fw fa-file-export"></i>
+            <span>Экспорт данных</span></a>
     </li>
 
     <!-- Divider -->
