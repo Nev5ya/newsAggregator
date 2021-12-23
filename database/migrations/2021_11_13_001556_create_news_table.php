@@ -20,7 +20,7 @@ class CreateNewsTable extends Migration
             $table->text('description');
             $table->text('author');
             $table->boolean('isPrivate')->default(false);
-            $table->string('image')->default('assets/image/default.jpg');
+            $table->string('image')->default('assets/image/default.jpg')->nullable();
             $table->timestamps();
         });
     }

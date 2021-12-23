@@ -21,7 +21,7 @@ class NewsFactory extends Factory
             'category_id' => "int",
             'title' => "string",
             'description' => "string",
-            'author' => "string",
+            'link' => "string",
             'created_at' => "string"
         ]
     )]
@@ -33,7 +33,7 @@ class NewsFactory extends Factory
             'category_id' => $categoryIndex,
             'title' => $this->faker->realText(rand(10, 15)),
             'description' => $this->faker->realText(rand(150, 300)),
-            'author' => $this->faker->name(),
+            'link' => $this->faker->url(),
             'created_at' => date(now())
         ];
     }

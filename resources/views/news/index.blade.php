@@ -15,8 +15,7 @@
                             <div class="small text-muted">{{ $news->created_at }}</div>
                             <h2 class="card-title h4">{{ $news->title }}</h2>
                             <p class="card-text">{!! $news->description !!}</p>
-                            <p class="card-text">{{ $news->author }}</p>
-                            <p class="card-text"><span class="fw-bold">Категория:</span> {{ $news->category_name }}</p>
+                            <p class="card-text"><span class="fw-bold">Категория:</span> {{ $news->category()->getResults()->slug }}</p>
                             <a class="btn btn-primary" href="{{ route('news.show', ['id' => $news->id]) }}">Read more →</a>
                         </div>
                     </div>

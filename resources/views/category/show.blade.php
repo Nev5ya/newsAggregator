@@ -26,5 +26,6 @@
             @endforelse
         </div>
         <!-- Pagination-->
+        {{ $newsList->links() }}
     </div>
 @endsection

@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Repository\UserRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -36,5 +39,29 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * @param $social
+     * @return RedirectResponse
+     */
+    public function socialLogin($social): RedirectResponse
+    {
+        return Socialite::driver($social)->redirect();
+    }
+
+    /**
+     * @param UserRepository $repository
+     * @param $social
+     * @return RedirectResponse
+     */
+    public function socialResponse(UserRepository $repository, $social): RedirectResponse
+    {
+        $user = Socialite::driver($social)->user();
+
+        $userAuth = $repository->firstOrCreateUser($user, $social);
+
+        auth()->login($userAuth);
+        return redirect()->route('news.index');
     }
 }

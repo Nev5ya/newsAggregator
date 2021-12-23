@@ -48,21 +48,28 @@
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
+                                        {{ __('Запомнить') }}
                                     </label>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                                <a class="card-link " href="{{ route('socialLogin', 'vkontakte') }}"><i class="fab fa-vk fa-2x"></i></a>
+                                <a class="card-link " href="{{ route('socialLogin', 'github') }}"><i class="fab fa-github fa-2x"></i></a>
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                    {{ __('Войти') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                        {{ __('Забыли пароль?') }}
                                     </a>
                                 @endif
                             </div>

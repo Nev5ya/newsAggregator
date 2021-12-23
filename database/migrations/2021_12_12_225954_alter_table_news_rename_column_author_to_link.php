@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableNewsAddForeignKey extends Migration
+class AlterTableNewsRenameColumnAuthorToLink extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,7 @@ class AlterTableNewsAddForeignKey extends Migration
     public function up()
     {
         Schema::table('news', function (Blueprint $table) {
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('categories')
-                ->onDelete('cascade');
+            $table->renameColumn('author', 'link');
         });
     }
 
@@ -29,8 +26,7 @@ class AlterTableNewsAddForeignKey extends Migration
     public function down()
     {
         Schema::table('news', function (Blueprint $table) {
-            $table->dropForeign(['category_id']);
-            $table->dropColumn(['category_id']);
+            $table->dropColumn(['link']);
         });
     }
 }

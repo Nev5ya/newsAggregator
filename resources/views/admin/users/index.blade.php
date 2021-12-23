@@ -46,7 +46,7 @@
                                         @csrf
                                         @method("DELETE")
                                         <a class="btn btn-facebook mb-1"
-                                           href="{{ route('admin.users.edit', $user) }}"><i
+                                           href="{{ route('profile.edit', $user) }}"><i
                                                 class="fas fa-edit fa-sm text-white-50"></i>&nbsp; Редактировать</a>
                                         <button class="btn btn-google mb-1" type="submit"><i
                                                 class="fas fa-trash fa-sm text-white-50"></i>&nbsp; Удалить

@@ -1,4 +1,5 @@
-<div class="col-lg-3 ml-5">
+{{--todo create popular themes--}}
+<div class="col-lg-3 ml-5 d-none">
     <div class="card">
         <div class="card-header">Популярные темы</div>
         <div class="card-body">

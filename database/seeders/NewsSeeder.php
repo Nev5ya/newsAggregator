@@ -30,7 +30,7 @@ class NewsSeeder extends Seeder
                 'category_id' => $categoryIndex,
                 'title' => $faker->realText(rand(10, 15)),
                 'description' => $faker->realText(rand(150, 300)),
-                'author' => $faker->name(),
+                'link' => $faker->name(),
                 'created_at' => date(now())
             ];
         }

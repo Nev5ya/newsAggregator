@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 namespace App\Http\Controllers;
 
@@ -19,7 +19,7 @@ class CategoryController extends Controller
     {
         $currentCategory = $news->getCurrentCategoryByName($categoryName);
         return view('category.show', [
-            'newsList' => $currentCategory->news,
+            'newsList' => $currentCategory->news()->paginate(6),
             'currentCategory' => $currentCategory->slug
         ]);
     }

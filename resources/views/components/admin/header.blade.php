@@ -14,12 +14,14 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600">{{ Auth::user()->name }}</span>
+                <img class="img-profile rounded-circle mr-3"
+                     src="{{ auth()->user()->avatar }}" alt="img">
+                <span class="mr-2 d-none d-lg-inline text-gray-600">{{ auth()->user()->name }}</span>
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                  aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="{{ route('showProfile', Auth::user()->id) }}">
+                <a class="dropdown-item" href="{{ route('profile.edit', auth()->user()->getAuthIdentifier()) }}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>

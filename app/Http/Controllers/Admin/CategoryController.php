@@ -46,6 +46,8 @@ class CategoryController extends Controller
     {
         $data = $request->validated();
 
+        $data['category'] = strtolower($data['category']);
+
         $category->fill($data);
 
         $category->save();

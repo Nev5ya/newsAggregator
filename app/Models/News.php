@@ -14,7 +14,7 @@ class News extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'category_id', 'description', 'author', 'image'];
+    protected $fillable = ['title', 'category_id', 'description', 'link', 'image'];
 
     public string $pathToImage = '/assets/image/default.jpg';
 

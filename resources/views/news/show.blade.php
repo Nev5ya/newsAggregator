@@ -21,7 +21,7 @@
         <div class="card-body">
             <h2 class="card-title">{{ $news->title }}</h2>
             <p class="card-text">{{ $news->description }}</p>
-            <p class="card-text">{{ $news->author }}</p>
+            <a href="{{ $news->link }}" class="card-link">Смотреть в источнике</a>
             <p class="card-text text-muted">{{ $news->created_at }}</p>
         </div>
     </div>

@@ -23,7 +23,7 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto align-items-center">
                     <!-- Authentication Links -->
                     @guest
                         @if (Route::has('login'))
@@ -38,6 +38,7 @@
                             </li>
                         @endif
                     @else
+                        <img src="{{ Auth::user()->avatar }}" alt="avatar" class="icon-circle mr-2">
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
@@ -49,7 +50,7 @@
                                             {{ __('Админка') }}
                                         </a>
                                 @endif
-                                    <a class="dropdown-item" href="{{ route('showProfile', Auth::user()->id) }}">
+                                    <a class="dropdown-item" href="{{ route('profile.edit', auth()->user()->getAuthIdentifier()) }}">
                                         {{ __('Профиль') }}
                                     </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"

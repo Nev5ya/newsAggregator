@@ -32,9 +32,9 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:30',
-//            'email' => 'required|email|unique:users,email,' . $this->user()->id,
-            'password' => 'required|confirmed|min:3',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $this->user()->id,
+            'password' => 'required|confirmed|string|min:3',
             'password_confirmation' => 'required|string|min:3'
         ];
     }
