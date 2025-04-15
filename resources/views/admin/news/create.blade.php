@@ -23,10 +23,7 @@
                     <label for="title">Заголовок</label>
                     <input type="text" class="form-control" name="title" id="title" value="{{ old('title') ?? $news->title ?? '' }}" required>
                 </div>
-                <div class="form-group">
-                    <label for="author">Автор</label>
-                    <input type="text" class="form-control" name="author" id="author" value="{{ old('author') ?? $news->author ?? '' }}" required>
-                </div>
+
                 <div class="form-group">
                     <label for="category">Категория</label>
                     <select class="custom-select" name="category_id" id="category_id">
@@ -46,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Описание новости</label>
-                    <textarea class="form-control" name="description" id="description" required>{{ old('description') ?? $news->description ?? '' }}</textarea>
+                    <textarea class="form-control" name="description" id="description" required>{!! old('description') ?? $news->description ?? '' !!}</textarea>
                 </div>
                 <div class="form-group">
                     <input class="custom-file" type="file" name="image">
@@ -55,4 +52,17 @@
             </form>
         </div>
     </div>
+    <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+    <script>
+        var options = {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+        };
+    </script>
+    <script>
+        CKEDITOR.replace('description', options);
+    </script>
+
 @endsection

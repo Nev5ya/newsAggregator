@@ -14,7 +14,7 @@ class News extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'category_id', 'description', 'link', 'image'];
+    protected $fillable = ['title', 'category_id', 'description', 'link', 'image', 'publicDate'];
 
     public string $pathToImage = '/assets/image/default.jpg';
 
@@ -71,11 +71,7 @@ class News extends Model
 
     public function getNewsForDownload(string $category): Collection
     {
-        if ($category === 'all') {
-            return News::all();
-        }
-
-        return $this->getNewsByCategory($category);
+        return $category === 'all' ? News::all() : $this->getNewsByCategory($category);
     }
 
 }

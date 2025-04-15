@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ParserController;
+use App\Http\Controllers\Admin\ResourceController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CategoryController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DownloadController;
+use UniSharp\LaravelFilemanager\Lfm;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,19 +42,22 @@ Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
 Route::get('/contact', [ContactController::class, 'index'])
     ->name('contact');
 
+//parsing in manual mode
+//Route::get('/parser', [ParserController::class, 'index'])
+//    ->name('parser');
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function() {
 
     Route::resource('news', AdminNewsController::class)->except('show');
     Route::resource('category', AdminCategoryController::class)->except('show');
     Route::resource('users', UserController::class)->except('create');
+    Route::resource('resource', ResourceController::class)
+        ->only(['index', 'create', 'store', 'destroy']);
 
     Route::get('/download', [DownloadController::class, 'index'])
         ->name('download.index');
     Route::post('/download', [DownloadController::class, 'download'])
         ->name('download.load');
-
-    Route::get('/parser', [ParserController::class, 'index'])
-        ->name('parser');
 });
 
 Auth::routes();
@@ -73,7 +78,9 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => 'auth']
     });
 });
 
-
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth', 'admin']], function () {
+    Lfm::routes();
+});
 
 /* Provide auth for social networks */
 Route::get('/auth/{social}', [LoginController::class, 'socialLogin'])

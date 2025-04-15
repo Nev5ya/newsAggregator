@@ -9,6 +9,11 @@ use Orchestra\Parser\Xml\Facade as XMLParser;
 
 class XMLParserService
 {
+    /**
+     * Function handling link and adding news to database
+     * @param $link
+     * @return void
+     */
     public function handle($link)
     {
         $xml = XMLParser::load($link);
@@ -38,7 +43,7 @@ class XMLParserService
                 ->firstOrCreate(['category' => $news['category'], 'slug' => $news['slug']]);
 
 
-            $news['created_at'] = date('Y-m-d H:i:s', strtotime($news['pubDate']));
+            $news['publicDate'] = date('Y-m-d H:i:s', strtotime($news['pubDate']));
             $news['category_id'] = $category['id'];
 
             unset($news['enclosure::url']);
@@ -51,7 +56,7 @@ class XMLParserService
                 'title' => $news['title'],
                 'description' => $news['description'],
                 'image' => $news['image'],
-                'created_at' => $news['created_at'],
+                'publicDate' => $news['publicDate'],
                 'link' => $news['link'],
                 'category_id' => $category['id']
             ]);

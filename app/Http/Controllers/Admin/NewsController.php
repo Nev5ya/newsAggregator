@@ -12,7 +12,7 @@ use Illuminate\Http\RedirectResponse;
 class NewsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the news.
      * @param News $news
      * @param Category $category
      * @return Renderable
@@ -35,7 +35,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created news.
      *
      * @param NewsRequest $request
      * @param News $news
@@ -59,7 +59,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the news.
      *
      * @param News $news
      * @param Category $category
@@ -73,7 +73,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in news table.
      *
      * @param NewsRequest $request
      * @param News $news
@@ -85,9 +85,11 @@ class NewsController extends Controller
 
         $news->fill($data);
 
-        $request->file('image')
-            ? $news->image = $news->handleImage(request()->file('image'))
-            : $news->image = $news->pathToImage;
+        if (!is_null($request->file('image')) && $news->image !== $news->pathToImage) {
+            $request->file('image')
+                ? $news->image = $news->handleImage(request()->file('image'))
+                : $news->image = $news->pathToImage;
+        }
 
         $news->save();
 
@@ -97,7 +99,7 @@ class NewsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from news table.
      *
      * @param News $news
      * @return RedirectResponse

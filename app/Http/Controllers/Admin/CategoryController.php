@@ -8,12 +8,11 @@ use App\Models\Category;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the category table.
      *
      * @param Category $category
      * @return Renderable
@@ -26,7 +25,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource in category table.
      *
      * @return Renderable
      */
@@ -36,7 +35,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in category table.
      *
      * @param CategoryRequest $request
      * @param Category $category
@@ -58,7 +57,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified resource in category table.
      *
      * @param Category $category
      * @return Renderable
@@ -70,7 +69,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in category table.
      *
      * @param CategoryRequest $request
      * @param Category $category
@@ -90,7 +89,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from category table.
      *
      * @param Request $request
      * @param Category $category

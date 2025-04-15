@@ -12,5 +12,7 @@ logoutButton.addEventListener('click' , async () => {
             'Content-Type': 'application/x-www-form-urlencoded',
             'X-CSRF-TOKEN': csrfToken
         }
+    }).then(() => {
+        window.location.replace('http://laravel.loc/');
     });
 });

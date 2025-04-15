@@ -12,7 +12,7 @@
                     <div class="card mb-4">
                         <a href="{{ route('news.show', ['id' => $news->id]) }}"><img class="card-img-top" src="{{ asset($news->image) }}" alt="img" /></a>
                         <div class="card-body">
-                            <div class="small text-muted">{{ $news->created_at }}</div>
+                            <div class="small text-muted">{{ date('H:i:s d.m.Y', strtotime($news->publicDate)) }}</div>
                             <h2 class="card-title h4">{{ $news->title }}</h2>
                             <p class="card-text">{!! $news->description !!}</p>
                             <p class="card-text"><span class="fw-bold">Категория:</span> {{ $news->category()->getResults()->slug }}</p>

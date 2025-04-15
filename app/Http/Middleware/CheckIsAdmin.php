@@ -16,7 +16,7 @@ class CheckIsAdmin
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        if (!auth()->user()?->is_admin) {
+        if (!auth()->user()?->getAttribute('is_admin')) {
             return redirect()->route('news.index')->with(['type' => 'danger', 'message' => 'Ты не админ!']);
         }
         return $next($request);

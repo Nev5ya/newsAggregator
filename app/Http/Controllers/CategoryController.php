@@ -19,7 +19,7 @@ class CategoryController extends Controller
     {
         $currentCategory = $news->getCurrentCategoryByName($categoryName);
         return view('category.show', [
-            'newsList' => $currentCategory->news()->paginate(6),
+            'newsList' => $currentCategory->news()->orderByDesc('publicDate')->paginate(6),
             'currentCategory' => $currentCategory->slug
         ]);
     }

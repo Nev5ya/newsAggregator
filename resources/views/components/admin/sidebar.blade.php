@@ -46,11 +46,17 @@
             <span>Пользователи</span></a>
     </li>
 
-    <li class="nav-item @if(request()->routeIs('*.parser.*')) active @endif">
-        <a class="nav-link" href="{{ route('admin.parser') }}">
-            <i class="fas fa-fw fa-download"></i>
-            <span>Парсер</span></a>
+    <li class="nav-item @if(request()->routeIs('*.resource.*')) active @endif">
+        <a class="nav-link" href="{{ route('admin.resource.index') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Ресурсы</span></a>
     </li>
+
+{{--    <li class="nav-item @if(request()->routeIs('*.parser.*')) active @endif">--}}
+{{--        <a class="nav-link" href="{{ route('parser') }}">--}}
+{{--            <i class="fas fa-fw fa-download"></i>--}}
+{{--            <span>Парсер</span></a>--}}
+{{--    </li>--}}
 
     <li class="nav-item @if(request()->routeIs('*.download.*')) active @endif">
         <a class="nav-link" href="{{ route('admin.download.index') }}">

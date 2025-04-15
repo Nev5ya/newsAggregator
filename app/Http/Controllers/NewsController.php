@@ -14,7 +14,10 @@ class NewsController extends Controller
      */
     public function index(News $news): Renderable
     {
-        return view('news.index')->with('newsList', $news->paginate(6));
+        return view('news.index')->with('newsList', $news
+            ->query()
+            ->orderByDesc('publicDate')
+            ->paginate(6));
     }
 
     /**
